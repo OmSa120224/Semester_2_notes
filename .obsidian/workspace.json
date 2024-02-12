@@ -1,0 +1,172 @@
+{
+  "main": {
+    "id": "ea17975969780db7",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dcdc7a3857fd608",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5eca9075a9812aab",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "427b36966cc07c37",
+    "type": "split",
+    "children": [
+      {
+        "id": "b68c995f7237d9ec",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3953c59b0ad192fd",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5799cc3b15afe883",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bd58ad10a16d7ca5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "dbdbaea863895347",
+    "type": "split",
+    "children": [
+      {
+        "id": "bb170fcc38b1237f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8c9faab652f0aab8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5d7bc901f32a4c23",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b047c11d75287b5b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "b51b98dc06a471b9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "3953c59b0ad192fd",
+  "lastOpenFiles": [
+    "Semester 2/Project 2 (P2)/Project 2 Planning.md",
+    "Semester 2/Project 2 (P2)",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Block 1/Lecture 2 - Self-Study with Help.md",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Block 1/Lecture 1.1 - Self-Study w-o.md",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Block 1/Lecture 1 - Introduction, Vectors and Linearity.md",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Attachments/General Examples of the dot product.png",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Attachments/Figure 3.6 Angles.png",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Attachments/Figure 3.2 Triangle inequality.png",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Attachments/Figure 3.1 The norm of the displacement a-b.png",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Block 1",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)/Attachments",
+    "Semester 2/Probability Theory and Linear Algebra (SLIAL)",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 5-1. JavaScript statement syntax 2.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 5-1. JavaScript statement syntax 1.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 4-3. Values returned by the typeof operator 2.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 4-3. Values returned by the typeof operator 1.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 4-1. JavaScript operators 1.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments/Table 4-1.  JavaScript operators 2.png",
+    "Semester 2/Internetworking and Web-programming (IWP)/Lecture 2 - JavaScript Functions and Objects.md",
+    "Semester 2/Internetworking and Web-programming (IWP)/Lecture 1 - Course Introduction and introduction to web-programming.md",
+    "Semester 2/Internetworking and Web-programming (IWP)/Attachments",
+    "Semester 2/Internetworking and Web-programming (IWP)",
+    "Semester 2/Algorithms and Data structures (ALG)/Lecture 1.md",
+    "Semester 2/Algorithms and Data structures (ALG)/Attachments",
+    "Semester 2/Algorithms and Data structures (ALG)",
+    "Semester 2",
+    "Welcome.md",
+    "CS-DAT2-NOTES"
+  ]
+}
