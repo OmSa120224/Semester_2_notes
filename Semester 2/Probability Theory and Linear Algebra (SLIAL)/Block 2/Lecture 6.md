@@ -14,6 +14,7 @@ X\;A=I
 $$
 is called a left inverse of A. The matrix $A$ is said to be left-invertible if a left inverse exists. Note that if $A$ has size $m*n$, a left inverse $X$ will have size $n*m$, the same dimensions as $A^T$ .
 
+left inverse does not have to exist, and it does not have to be unique 
 
 Examples:
 * Any nonzero n-vector a, considered as an $n⨉1$ matrix, is left-invertible. For any index i with $a_i ≠ 0$, the row n-vector $x = (1/a^i)e^T_i$ satisfies $xa = 1$.
@@ -37,11 +38,13 @@ Suppose the $m⨉n$ matrix $A$ is wide meaning $m<n$ (m is rows and n is columns
 
 
 #### Solving linear equations with a left inverse.
-Suppose that $Ax = b$, where $A$ is an $m * n$ matrix and $x$ is an n-vector. If $C$ is a left inverse of $A$, we have
+Suppose(meaning we suppose that the system is solvable otherwise there might be a solution. If even if a matrix is left invertible, it does not give the right to do the equation below if it is not solvable) that $Ax = b$, where $A$ is an $m * n$ matrix and $x$ is an n-vector. If $C$ is a left inverse of $A$, we have
 $$
 Cb=C(Ax)=(CA)x=Ix=x
 $$
 meaning that $x=Cb$ is a solution of the set of linear equations. 
+
+in summary we can only use this trick if the system is solvable, otherwise one might get a result from $Cb$ that is not a solution.
 
 In summary, a left inverse can be used to determine whether or not a solution of an over-determined set of linear equations exists, and when it does, find the unique solution.
 
@@ -70,7 +73,7 @@ Then for any m-vector b, the n-vector $x = Bb$ satisfyes the equation $Ax = b$.
 $$
 Ax=A(Bb)=(AB)b=Ib=b
 $$
-We can conclude that if A is right-invertible, then the linear equations $Ax = b$ can be solved for any vector $b$. Indeed, $x = Bb$ is a solution.
+We can conclude that if A is right-invertible, then the linear equations $Ax = b$ can be solved for any vector $b$. Indeed, $x = Bb$ is a solution(there could be other solutions).
 
 ### Left and right inverse of matrix product.
 Suppose $A$ and $D$ are compatible for the matrix product $AD$ (i.e., the number of columns in $A$ is equal to the number of rows in $D$.) If $A$ has a right inverse $B$ and $D$ has a right inverse $E$, then $EB$ is
@@ -100,6 +103,12 @@ A matrix $A$ and its invers (if it exists) satisfy
 $$
 AA^{-1}=A^{-1}A=I
 $$
+
+Inverse of inverse 
+$$
+(A^{-1})^{-1}=A
+$$
+
 ### Invertible matrices must be square
 Consider the square system of n linear equations with n variables, $Ax = b.$ If $A$ is invertible, then for any n-vector b,
 Equation 11.1
@@ -122,6 +131,14 @@ In summary, for a square matrix A, the following are equivalent.
 * $A$ has a left inverse
 * $A$ has a right inverse
 So all six of these conditions are equivalent; if any one of them holds, so do the other five.
+
+
+if a matrix si invertible 
+then for any b,  $Ax=b$  has the unique solution
+$$
+x=A^{-1}b
+$$
+for matrices larger than fx 4x4 this is bad to use as it is very costly and there are more effecting ways to find the solution. However it is good that one is aware of this formula. 
 
 ### Inverse of matrix transpose.
 A is invertible, its transpose $A^T$ is also invertible and its inverse is $(A^{-1})^T$ :
@@ -155,3 +172,7 @@ $A^0$ is defined as $A^0=I$
 #### Inverse via QR factorization.
 equation 11.3
 ## 11.3 Solving linear equations
+
+
+
+
