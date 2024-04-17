@@ -66,6 +66,9 @@ We now define the probability of an event as the sum of the probabilities of the
 
 
 ## 7.2.4 Conditional Probability
+Ex, i
+
+
 In general, to find the conditional probability of $E$ given $F$, we use $F$ as the sample space. For an outcome from $E$to occur, this outcome must also belong to $E ∩ F$. With this motivation, we make Definition 3.
 
 > [!NOTE] Definition 3
@@ -74,11 +77,13 @@ In general, to find the conditional probability of $E$ given $F$, we use $F$ as 
 
 
 ## 7.2.5 Independence
-
+Remember the definition in the slides. 
 
 When two events are independent, the occurrence of one of the  vents gives no information about the probability that the other event occurs.
 > [!NOTE] Definition 4
 > The events $E$ and $F$ are independent if and only if $p(E ∩ F) = p(E)p(F)$.
+
+
 
 
 
@@ -107,3 +112,6 @@ Considered as a function of $k$, we call this function the **binomial distributi
 
 Note that the sum of the probabilities that there are k successes when n independent Bernoulli trials are carried out, for $k = 0, 1, 2,…, n,$ equals $$\sum_{k=0}^{n}C(n,k)p^kq^{n-k}=(p+q)^n=1 $$
 
+
+
+``
