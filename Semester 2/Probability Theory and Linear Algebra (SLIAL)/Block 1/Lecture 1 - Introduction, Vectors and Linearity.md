@@ -1,5 +1,6 @@
-Date: 06/02/2024
-Literature: Chapter 1 + 2.1
+**Scheduled**: 2024/02/06
+**Latest Revision**: 2024/05/02
+**Literature**: Introduction to Applied Linear Algebra: Vectors, Matrices, and Least Squares by S. Boyd and L. Vandenberghe.  **Chapter 1 & 2.1**
 ____
 # Chapter 1: Vectors
 
@@ -61,7 +62,7 @@ Two vectors *of the same size* can be added together by adding the corresponding
 $$
 \begin{bmatrix} 0 \\ 7\\ 3 \end{bmatrix} + \begin{bmatrix} 1 \\ 2\\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 9\\ 3 \end{bmatrix}
 $$
-subtraction
+Subtraction
 $$
 \begin{bmatrix} 0 \\ 7\\ 3 \end{bmatrix} - \begin{bmatrix} 1 \\ 2\\ 0 \end{bmatrix} = \begin{bmatrix} -1 \\ 5\\ -3 \end{bmatrix}
 $$
@@ -71,6 +72,8 @@ $$
 * Vector addition is *associative*: *$( \vec a + \vec b) + \vec c = \vec a + (\vec b + \vec c) = \vec a + \vec b + \vec c$
 * Adding the *zero vector* has no effect: $\vec a + \vec 0 = \vec 0 + \vec a = \vec a$.
 * Subtracting a vector from it self yield to a *zero vector*: $\vec a- \vec a=\vec 0$
+
+
 ## 1.3 Scalar-vector multiplication
 Scalar multiplication *or scalar-vector multiplication*, in which
 a vector is multiplied by a scalar (i.e., number), which is done by multiplying every element of the vector by the scalar.
@@ -81,10 +84,8 @@ $$
 **Properties of *Scalar-vector multiplication**
 * *Commutative*: $\vec a \beta = \beta \vec a$
 * *Associative*: $(\vec a \beta) \gamma = \vec a (\beta \gamma)$ 
-* Distributive: $(\beta + \gamma) \vec a = \vec a \beta + \vec a \gamma$
-* Another version of Distributive: $(\vec a + \vec b) \beta= \vec a \beta + \vec b \beta$
-
-
+* *Left Distributive*: $(\beta + \gamma) \vec a = \vec a \beta + \vec a \gamma$
+* *Right Distributive*: $(\vec a + \vec b) \beta= \vec a \beta + \vec b \beta$
 
 **Important terms to understand and remember(check the book p. 27)**
 * ***Linear combinations**: 
@@ -97,20 +98,21 @@ is called a linear combination of the vectors  $a_1,...,a_n$. The  scalars
 $\beta_1,...\beta_n$  are called the coefficients of the linear combination.
 
 * *Linear combination of unit vectors*: We can write any $n-vector \:\:b$ as a linear combination of the standard unit vectors.
-We can write any n-vector $b$ as a linear combination of the standard unit vectors, as
-
+We can write any $n-vector$ $b$ as a linear combination of the standard unit vectors, as
 $$
 b=b_1e_1+...+b_ne_n
 $$
-* *Special linear combinations*: 
-Sum of the vectors
-let $a_1,...,a_n$ be n vectors and $\beta_1=...=\beta_m=1$ be scalars, then the linear combinations of them is the sum of the vectors
+### Special linear combinations.
+- Sum of the vectors
+Let $a_1,...,a_n$ be $n-vectors$ and $\beta_1=...=\beta_m=1$ be scalars, then the linear combinations of them is the sum of the vectors.
 
-the average of the vectors
-et $a_1,...,a_m$ be n vector and $\beta_1=...=\beta_m=1/m$ then the linear combination of them is the average 
+- The average of the vectors
+Let $a_1,...,a_m$ be n vector and $\beta_1=...=\beta_m=1/m$ then the linear combination of them is the average 
 
-weighted average
-let $a_1,...,a_n$ be n vectors and let  $\beta_1+...+\beta_m=1$ then the combination of them is a weighted average which add up to 100%.
+- Weighted average
+Let $a_1,...,a_n$ be $n-vectors$ and let  $\beta_1+...+\beta_m=1$ then the combination of them is a weighted average which add up to 100%.
+
+_____
 ## 1.4 Inner Product or Dot product
 
 The (standard) *inner product* (also called *dot product*) of two *n-vectors* is defined as the scalar
@@ -126,13 +128,15 @@ $$
 * *Associativity with scalar multiplication*: $(\gamma \vec a)^T \vec b = \gamma (\vec a ^T \vec b) = \gamma \vec a^T \vec b$
 * *Distributivity with vector addition*: $(\vec a + \vec b)^T \vec c = \vec a ^T \vec c + \vec b^T \vec c$
 
+
+**Inner product and orthogonality**: Two vectors are orthogonal to each other if their inner product is zero.
+
 General Examples of the dot product:
 ![[General Examples of the dot product.png]]
 
-
 ## 1.5 Complexity of vector computations
 ![[1.5 complexity of simply vector operations.png]]
-the complexity of inner product when one of the two vectors is sparse, is approximately about 2 times the number of non zero entries nnz(x) in the sparse vector.  
+The complexity of inner product when one of the two vectors is sparse, is approximately about 2 times the number of non-zero entries $nnz(x)$ in the sparse vector.  
 _____
 # Chapter 2: Linear Function
 
@@ -142,12 +146,11 @@ _____
 $$
 f:R^n \to R
 $$
-means that $f$ is a function that takes an $n$-vectors in  and gives out a number
-
+means that $f$ is a function that takes an $n-vectors$ in  and gives out a number.
 
 ### **The inner product function.**
 read again 
-
+$$f(x) = a^Tx = a_1x_1 + a_2x_2 +...+ a_nx_n$$
 #### **Superposition and linearity**
 A function that satisfies the superposition property is called ***linear***.
 The superposition equality
@@ -156,14 +159,14 @@ f(\alpha \vec x + \beta \vec y) = \alpha f(\vec x) + \beta f(\vec y)
 $$
 if a function is linear then the identity holds for all $\alpha$ and $\beta$ and all $x$ and $y$.
 
-This equality could be broken down into two  properties. 
+This equality could be broken down into two properties. 
 * *Homogeneity*: $f(\alpha \vec x) = \alpha f(\vec x)$
 Homogeneity states that scaling the (vector) argument is the same as scaling the function value; 
 * *Additivity*: $f(\vec x+ \vec y)= f(\vec x) + f(\vec y)$
 *Additivity* says that adding (vector) arguments is the same as adding the function values.
 
 #### The inner product function
-$a$ is an n-vector, then the function 
+$a$ is an $n-vector$, then the function 
 $$
 f(x)=a^Tx=a_1x_1+...+a_nx_n
 $$
@@ -172,7 +175,7 @@ we know from the superposition equality that a function is linear if
 $$
 f(\alpha x+\beta y)= \alpha f( x) + \beta f( y)
 $$
-however we can rewrite the LHS using the inner product 
+however we can rewrite the RHS using the inner product 
 $$
 f(\alpha x+\beta y)= a^T(\alpha x+\beta y)
 $$
@@ -193,14 +196,14 @@ $$
 **Inner product representation of a linear function** 
 suppose $f:R^n \to R$ is linear then it can be expressed as $f(x)=a^Tx$ for some $a$. Meaning  all linear functions can be expressed as an inner product.
 
-here one have to be specific about what the vectors $a$ is
+Here one have to be specific about what the vectors $a$ is
 $$a_i=f(e_i)$$
 the $i_{th}$ entry of the vector $a$ is the function $f$ of the $i_{th}$ unit vector .
 hence: 
 $$
 f(x)=f(x_1e_1+x_2e_2+...+x_ne_n)
 $$
-the above is saying that $f(x)$ is the same as function $f$ of ***the linear combination*** or the sum of vectors-scalar multiplication. Where one multiply the $i_{th}$ entry of $x$ (the scalar) by the $i_{th}$ unit vector (the vector)  which will give the vectors $x$ is we sums them up.
+the above is saying that $f(x)$ is the same as function $f$ of ***the linear combination*** or the sum of vectors-scalar multiplication. Where one multiplies the $i_{th}$ entry of $x$ (the ...) by the $i_{th}$ unit vector (the vector)  which will give the vectors $x$ is we sums them up.
 
 however if we use superposition role we get the following
 $$
@@ -212,22 +215,23 @@ f(x)=f(x_1e_1+x_2e_2+...+x_ne_n) \cr \cr
 $$
 the above is saying that $f$ of a linear combination (first line) is the same as the linear combination of $f$ applied to each of the unit vectors (second line). Which is exactly the same as the inner product between $a$ and $x$ (third line) where $a$ is the vectors whose entries are $f(e_i)$
 
-Note:
-if a function is linear $f(x)=a^Tx$ then can immediately calculate $f(\vec 0)=0$. meaning a linear function has to go through the origin point.
+**NOTE:**
+If a function is linear $f(x)=a^Tx$ then one can immediately calculate $f(\vec 0)=0$. Meaning a linear function has to go through the origin point.
 
 #### Affine functions
-general form 
+General form 
 $$
 f(x)=a^Tx+b
 $$
-where $a$ and $x$ are n-vectors and be is a scalar.  hence $f(\vec 0)=b$
+where $a$ and $x$ are $n-vectors$ and $b$ is a scalar.  Hence, $f(\vec 0)=b$
 
 A function $f:R^n\to R$ is affine if and only if
 $$
 f(\alpha x+\beta y)= \alpha f( x) + \beta f( y)
 $$
-hold for a restricted set of  $\alpha, \beta$ as  $\alpha+\beta=1$ and all n-vectors $x,y$
-Note that $\alpha$ or $\beta$ can be negative as long then add up to one. 
+hold  all $n-vectors$ $x,y$ and for a restricted set of  $\alpha, \beta$ specifically  $\alpha+\beta=1$.
+
+**NOTE**: that $\alpha$ or $\beta$ can be negative as long then add up to one. 
 
 
 > [!warning] Note

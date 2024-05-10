@@ -1,0 +1,23 @@
+# Block 1
+
+| Lecture                                                                                                                                                                                                   | Topic                                                          |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- |
+| [[Lecture 1 - Introduction, Vectors and Linearity]]                                                                                                                                                       | Vectors (addition, multiplication by scalars)                  |
+| [[Lecture 1 - Introduction, Vectors and Linearity]]                                                                                                                                                       | Inner product, orthogonality                                   |
+| [[Lecture 2 - Linear Independence]]                                                                                                                                                                       | Linear combination, linear (in)dependence                      |
+| [[Lecture 2 - Linear Independence]]                                                                                                                                                                       | Dimension-independence inequality, basis                       |
+| [[Lecture 2 - Linear Independence]]                                                                                                                                                                       | Gram-Schmidt orthogonalization                                 |
+| [[Lecture 3 - Matrices]]                                                                                                                                                                                  | Matrices (addition, multiplication by scalars)                 |
+| [[Lecture 3 - Matrices]]                                                                                                                                                                                  | Matrix-vector product                                          |
+| [[Lecture 4.1 - Matrix multiplication]]                                                                                                                                                                   | Matrix-matrix product                                          |
+| [[Lecture 4.1 - Matrix multiplication]]                                                                                                                                                                   | QR-factorization using Gram-Schmidt                            |
+| [[Lecture 4 - Linear equation and Gaussian elimination]]                                                                                                                                                  | Systems of linear equations                                    |
+| [[Lecture 4 - Linear equation and Gaussian elimination]]                                                                                                                                                  | Gauss (row) elimination, echelon form                          |
+| [[Lecture 4 - Linear equation and Gaussian elimination]]                                                                                                                                                  | Backward substitution                                          |
+| [[Lecture 4 - Linear equation and Gaussian elimination]]                                                                                                                                                  | Existence/uniqueness of solutions from row echelon form        |
+| Lecture 1 - Superposition principle.<br>Lecture 4 - Superposition and matrices.<br>Lecture 3 - Not sure what he means with transformation but Geometric Transformations are in chapter 7.1(not included). | Linear functions and transformations (superposition principle) |
+|                                                                                                                                                                                                           | Matrix corresponding to linear transformation                  |
+____
+# Block 2
+
+
