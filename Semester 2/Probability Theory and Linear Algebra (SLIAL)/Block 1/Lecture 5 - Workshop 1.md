@@ -22,15 +22,15 @@ $$
 \begin{align*}
 (t_1, \beta_1), (t_2, \beta_2), \dots, (t_n,\beta_n) \tag{1}
 \end{align*}
-
 $$
+
 which we interpret as $n$ points in $\mathbb{R}^2$. Our underlying assumption is going to be that
 $$
 \begin{align*}
 t_i \neq t_j, \text{ for } i \neq j, \text{ and } i=1,\dots, n, \; j=1,\dots, n. \tag{2}
 \end{align*}
-
 $$
+
 We would like to find a polynomial
 $$
 \begin{align*}
@@ -47,6 +47,7 @@ p_x(t_n)=\beta_n,
 \end{cases} \tag{4}
 \end{align*}
 $$
+
 for the unknown *vector* of polynomial coefficients $x = (x_1, x_2, ... , x_n) ∈ \mathbb{R}^n$. This is a system of linear algebraic equations and can as such be represented in the form $Ax = b$, for some suitably constructed matrix
 $A$ and the vector $b$.
 
@@ -73,6 +74,7 @@ In equation (3) the $x_1, x_2,...x_n$ are scalars and make up the vector of unkn
 $$
 x= \begin{pmatrix}x_1\\x_2\\ \vdots\\ x_n \end{pmatrix}
 $$
+
 meaning we are multiplying the the entries of vector $x$ with the $t^0, t^1,...t^n$. Therefore if we replace the vectors $x$ with the unit vectors $e_1$, $e_2$ or $e_3$ we get 
 $$
 \begin{matrix}p_{e_1}=1*t+0*t+0*t_2+\dots+0*t^{n-1}=1\\
@@ -80,6 +82,7 @@ p_{e_2}=0+1*t+0*t^2+\dots+0*t^{n-1}=t \\
 p_{e_3}=0+0*t+1*t^2+\dots+0*t^{n-1}=t^2
 \end{matrix}
 $$
+
 Hence if we replace the vector $x$ with the unit vector $e_n$ we get
 $$
 p_{e_n}=t^{n-1}
@@ -299,7 +302,6 @@ x_2=-28\\
 x_3=8
 \end{cases}
 $$
-
 Here is the quadratic polynomial is 
 $$p_x(t)=24 +28t+8t^2$$
 
@@ -498,10 +500,13 @@ $t_2, \beta_2$ are (2, 0)
 $t_3, \beta_3$ (3, 12)
 
 To construct the interpolating polynomial as a linear combination of Lagrange polynomials we use the formula given in (8):
+
 $$
 p_x(t)=\beta_1L_1+\beta_2L_2+\beta_3L_3
 $$
+
 Then we substitute $L_1$, $L_2$, and $L_3$ and $\beta_1$, $\beta_2$ and $\beta_3$
+
 $$
 \begin{matrix}
 \begin{aligned}
@@ -511,6 +516,7 @@ p_x(t)&=4 \left( \frac{(t-2)(t-3)}{2} \right)+ 0\left( \frac{(t-1)(t-3)}{-1} \ri
 \end{aligned}
 \end{matrix}
 $$
+
 As one can see , the polynomial constructed using Lagrange polynomials is the same as the one constructed in 1.5.
 
 Idk how to explain this, therefore, according to ChatGPT
@@ -652,7 +658,6 @@ I remember reading that for product of two matrices to give the identity matrix,
 
 
 In 1.9. We found that for each Lagrange polynomial $L_i​(t)$, the vector of its coefficients $[c_{1i}​,c_{2i}​,…,c_{ni}​]^T$ (the transpose means that the vectors is a column not a row) multiplied by matrix $A$ yields the standard unit vector $e_i$​ where $e_i$​ is the $i_{th}$ column of the identity matrix $I$.
-
 $$
 C = \begin{bmatrix}
 	c_{11} &\dots & c_{1n}\\
@@ -693,27 +698,26 @@ Bezier curve is a piecewise-polynomial curve, where each piece is represented by
 We shall focus on only one piece of the spline, as shown in Figure 2. The parameter t will vary in the interval $[t_1, t_2] = [0, 1]$. We put
 $$
 \begin{aligned}
-
-    p(t) &= p_1 + p_2 t + p_3 t^2 + p_4 t^3, \;\;\;\text{and}\\
-
-    q(t) &= q_1 + q_2 t + q_3 t^2 + q_4 t^3.
-
-  \end{aligned} \tag{10}
+p(t) &= p_1 + p_2 t + p_3 t^2 + p_4 t^3, \;\;\;\text{and}\\
+q(t) &= q_1 + q_2 t + q_3 t^2 + q_4 t^3,
+\end{aligned}
+\tag{10}
 $$
 Thus we have 8 unknown coefficients $(p_1,\dots,p_4,q_1,\dots,q_4)$ to determine.
 
-The $p-coefficients$ can be determined independently from *q-coefficients*, and the procedure is exactly the same for both sets of coefficients. We will therefore focus only on *p-coefficients*.
+The *p-coefficients* can be determined independently from *q-coefficients*, and the procedure is exactly the same for both sets of coefficients. We will therefore focus only on *p-coefficients*.
 
 The equations that $p(t)$ has to satisfy are
 $$
 \left\{
-    \begin{aligned}
-      p(0) &= x_1,\\
-      p'(0) &= 3(x_2-x_1),\\
-      p'(1) &= 3(x_4-x_3),\\
-      p(1) &= x_4,
-    \end{aligned}
-  \right. \tag{11}
+\begin{aligned}
+p(0) &= x_1,\\
+p'(0) &= 3(x_2-x_1),\\
+p'(1) &= 3(x_4-x_3),\\
+p(1) &= x_4,
+\end{aligned}
+\right. 
+\tag{11}
 $$
 where $(x1, . . . , x4)$ are given by the user, for example see Figure 2. Note, that now the unknowns are called $(p1, . . . , p4)$, while $(x1, . . . , x4)$ are known constants.
 ______
@@ -728,12 +732,12 @@ p'(t)=p_2+2p_3t+3p_4t^2
 $$
 Then the equation that construct the matrix are 
 $$
-    \begin{aligned}
-      p(0) &= p_1=x_1, \\
-      p'(0) &= p_2=3(x_2-x_1),\\
-      p'(1) &= p_2+2p_3+3p_4=3(x_4-x_3),\\
-      p(1) &= p_1+p_2+p_3+p_4=x_4
-    \end{aligned}
+\begin{aligned}
+p(0) &= p_1=x_1, \\
+p'(0) &= p_2=3(x_2-x_1),\\
+p'(1) &= p_2+2p_3+3p_4=3(x_4-x_3),\\
+p(1) &= p_1+p_2+p_3+p_4=x_4
+\end{aligned}
 $$
 We need to construct the augmented matrix but first here is the matrix of coefficients (lets call it $M$), the vectors of unknowns $p$ and the $RHS$ 
 
@@ -750,7 +754,6 @@ p=\begin{bmatrix}p_1 \\ p_2 \\ p_3 \\ p_4 \end{bmatrix}, \;\;\;\;\;\;\;\;
 RHS=\begin{bmatrix}x_1 \\ 3(x_2-x_1) \\ 3(x_4-x_3) \\ x_4 \end{bmatrix}, 
 \end{matrix}
 $$
-
 What we are trying to solve is $M*p=RHS$. Therefore, the augmented matrix to perform Gaussian elimination on becomes
 $$
 \left[
@@ -762,5 +765,6 @@ $$
 \end{array}
 \right]
 $$
+
 **To be continued......**
 
