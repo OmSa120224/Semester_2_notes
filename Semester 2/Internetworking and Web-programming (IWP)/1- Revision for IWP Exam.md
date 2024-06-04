@@ -1299,3 +1299,795 @@ What can I do with request (= the result of a fulfilled `fetch` Promise)?
 - Let’s not get a Promise out of the response
 	- If you access the data in any way (.json(), .text(), etc), you cannot re-access it
 ![[aborting a fetch req.png]]
+
+___
+____
+# Lecture 9
+Agenda
+1. Structure of the Internet
+2. Packet switching principle
+3. Delay, Throughput, and Bottlenecks
+4. Internet Protocol stack
+
+## Structure of the Internet
+What components does the network consist of?
+How is it structured in networks of networks?
+
+### What does the Internet consist of?
+ **Billions of connected “computers” : (phones, laptops, PC, smartphones)**
+• hosts = end systems
+• Runs network applications
+
+**Communication links (links)**
+• fiber, copper, radio, satellite,…
+• Transports data with a certain transmission rate:
+• (Mega) bits-per-second (Mbps)
+
+**packet switches**: device that forwards data packets in the network
+• routers and Layer 2 switches
+
+
+**Network**: collection of hosts, routers, links managed by an organization
+
+## Simple model for the structure of the Internet
+![[simple structure of the internet.png]]
+
+**Network edge (edge):**
+• hosts = than systems
+• Clients and servers
+• Servers, typically located in data centers
+
+**Access network (access)**
+• The outer link, connecting subscribers to their ISP
+• Local network + connection to ISP
+• Wired connections
+• Wireless connections
+
+**Network core (core):**
+• Linked ISP routers
+• Hierarchies
+• Network of networks
+
+• **Links**: the transmission medium between two
+nodes (hosts/routers)
+
+
+![[protocals illustrations.png]]
+
+Protocols: Rules that govern the sending and receiving of messages
+• Data content and format of messages
+• What actions must be taken when receiving or sending messages?
+• e.g., TCP, IP, HTTP, Skype, 802.11
+
+Internet standards
+• Described in "RFCs": Request for comments (http://www.rfc-editor.org/standards )
+• by IETF: Internet Engineering Task Force (https://www.ietf.org/about/)
+
+
+### Internet Structure: Network of Networks
+Question: How are millions of ISP access networks connected?
+Direct connections (links) between each ISP does not scale: O($N^2$ ) compounds.
+
+
+One option: connect each access ISP to a global transit ISP?
+Business agreement between customer and supplier ISPs
+![[connect each access ISP to a global transit ISP.png]]
+
+Better with more transit ISPs: Competition, decentralization, scaling, …
+![[more transit ISPs.png]]
+
+Some Transit ISPs want to connect with each other
+
+IXP: Internet Exchange Point (IXP) I Physical and neutral location where different ISP networks meet and exchange traffic.
+![[IXP exchange points.png]]
+
+regional networks may arise that are desired to be connected to the global network
+![[regional ISP.png]]
+
+
+Major content providers (e.g., Google, Microsoft, Akamai) operate their own networks to deliver services and content closer to the end user
+
+![[tiers of isp.png]]
+
+A complex structure of inter-connected networks among
+-  ISPs, Telecom providers, Content providers' networks (e.g., Google, Microsoft, Akamai)
+- At the core: a small number of well-connected large networks, powered by Larger telecom and data communication companies
+- Data centers concentrate many servers (“the cloud”), and content providers concentrate a lot traffic, often in own networks outside layer-1 or regional ISPs
+
+## Packet-switching
+What is packet switching?
+Why and when is it smart?
+
+**Packet switching**: sending host divides its data into smaller "data packets" 
+• Forward packets from one router to the next on the path of links from source to destination
+• Each packet is sent at the link's (full) transmission rate
+
+**Store and forward**: the entire packet must be received by a router and stored in its memory before it can be forwarded on the next link
+
+![[packet switching illus.png]]
+
+**Delays**
+• A packet that is *L-bits* long, sent at the rate *R bps*, takes *L/R* seconds to send
+• Ex. Send delay: 1000 bits/1 Mbps = 1ms
+• Ex. 2 hops to destination: Total delay: 2L/R (plus some more…)
+• For example, on Ethernet the maximum packet size is L= 1522 bytes = 12176 bits
+
+
+### Packet Switching: Packet queues and packet loss
+If the arrival rate of a link exceeds its transmission rate over a short period of time:(if more packets arrive than what can be send, i queue is formed)
+• Packets are queued and await transmission on link
+
+![[packets queue.png]]
+Queues occur when work arrives faster than that
+can be treated
+
+Packets are thrown out (dropped/lost) if the buffer runs out of space
+
+Good for data traffic that comes in bursts: resource sharing (“statistical multiplexing”)
+• If A and B transmit simultaneously, they must share the capacity of the output link (e.g. 1.5 Mbps)
+• It is less likely that A and B both transmit with R at the same time for a long time
+• If A sends "now" and B does not, A's traffic is forwarded at full 1.5 Mbps speed
+
+• Without control: unrestrained degree of "constipation" (congestion)
+• Alternative principle : circuit switching
+
+### circuit switching
+- Before data is sent, a path (circuit) is created between sender and receiver, like all data sent above
+- Each circuit gets one pre-booked fixed transmission rate, e.g. 100 kbps
+	- Available all the time, regardless of major or minor needs.
+	- This makes it seem as if there is a dedicated "fixed" connection between transmitter and receiver
+
+**Link capacity partitioning techniques**
+• Frequency-Division Multiplexing
+• Time-Division Multiplexing
+![[FDM TDM.png]]
+
+### Package clutch vs. circuit coupling
+1 Gbps link, where each user uses 100 Mbps, but is only "active" 10% of the time
+![[Package clutch vs. circuit coupling.png]]
+
+
+### Two key functions of a router
+Two key functions of a router are:
+- Forwarding
+- Routing
+![[Two key functions of a router.png]]
+
+## Delay, Throughput, Loss
+How to determine latency through the network?
+How is the possible transfer rate determined?
+
+It takes some time to send (transmit) a bit on the medium (a)
+• (too) simple example
+• A logic 1 is coded as 3 volts for 1 μs
+• A logical 0 is coded for 0 volts for 1 μs
+• Provides transmission speed of 1 mega bits per second
+
+There is a signal propagation time between transmitter and receiver (b)
+• Depends on the medium and the distance between transmitter and receiver
+• Barely the speed of light (approx. 2*108 m/s))
+• Electrical signal in copper: approx. 70% of the speed of light
+![[Delay in sedning data in a medim.png]]
+
+### Sources of delay in a router
+Time from when a packet has just been received in one node until it has just been received in the next
+![[Time from when a packet has just been received in one node until it has just been received in the next.png]]
+![[Sources of delay in a router.png]]
+
+### Traffic Intensity
+![[Traffic Intensity.png]]
+
+### Throughput
+
+throughput: speed (in bits/second) that can be transferred from
+sender to receiver
+• Instantaneous: speed at a given time
+• Average: speed over a long period of time
+• Pipeline analogy
+![[Pipeline analogy.png]]
+
+![[pipeline analogy 2.png]]
+
+**bottleneck link**: The link on the end-to-end path that limits end-to-end throughput.
+
+### Throughput: Internet Scenario
+![[Throughput Internet Scenario.png]]
+
+## TCP/IP protocol stack
+What is a protocol stack?
+What does a model for layering the internet protocols look like?
+How are packets processed in the IP stack?
+
+- “Protocol stack” collection of related protocols organized into layers
+- TCP/IP Reference Model: A 5-layer model for the Internet protocols, which is extracted based on observations of a concrete network
+
+![[internet layers.png]]
+**Application layer**: Protocols that support the execution of network applications (mail, browser, file transport, ...)
+• FTP, SMTP, HTTP, DN
+
+**Transport layer**: Transfers data from a running program (process) on end-system A to counterpart on end-system B
+• TCP, UDP
+
+**Network layer**: routing and forwarding of packets from source to destination
+• IP
+
+**Link layer**: data transfer between direct neighbouring nodes in the network, i.e. connected by a single link.
+• Ethernet, IEEE-802.11 (WiFi), PPP, SONET
+
+
+**Physical layer**: bits “on the wire”
+
+
+### TCP/IP Reference Model
+- Narrow-waist/hourglass model: If we can transport IP on medium X, all transport and application protocols work too.
+- “Lowest common denominator”
+![[narrow waist model.png]]
+
+
+### Abstract service description
+- Each protocol instance "talks" virtually directly with its counterpart (peer)
+- Each layer communicates only using the layer below
+- Services offered by a lower layer can be accessed by upper layer via an interface
+- At the bottom, messages are transferred on a physical medium
+![[Abstract service description.png]]
+
+## Services, Layer division, and encapsulation
+Control flow goes down through the protocol layers
+![[Control flow goes down through the protocol layers.png]]
+
+
+### Segmentation and re-assembly
+![[Segmentation and re-assembly.png]]
+- Some layers and services support a maximum packet size
+- Divide large packets into smaller parts ("protocol data unit"); re-assembled at recipient
+- Division into smaller packages can in principle be done on all layers
+ 
+### Why layering?
+**Simplifies building complex systems:**
+- Explicit structure allows single parts and their relationship to be identified and understood in smaller chunks
+- Structure in simpler modules facilitates maintenance and updating of a system
+	- Changing the implementation of a service can be done without changing the rest of the systems
+**Disadvantages of layering?**
+- Some functions can be difficult or expensive in terms of performance to implement
+	- Stateful firewalls
+	- NAT
+
+**==IMPORTANT GENERAL COMPUTER LOGIC PRINCIPLE:==**
+- Division of complex functionality into abstraction/virtualization layers each with well-defined functionality, which can be more or less tightly encapsulated
+
+### OSI Reference Model
+- A more "principled" model, standardized 7-layer model
+	- Open Systems Interconnection Reference Model
+	- International Organization for Standardization ("ISO 7498-2")
+![[OSI Reference Model.png]]
+1. Layer: Provides functions that users need
+2. Layer: Conversion between different data representations: enables applications to interpret data based on their meaning, e.g. encryption, compression, machine specific conventions
+3. Layer: Manages a dialogue: synchronization, checkpointing, re-creation of data exchange
+4. Layer: Provides end-to-end delivery
+5. Layer: Sending datagrams over multiple links
+6. Layer: Sends frames with data
+7. Layer: Sending bits coded as “signals”
+
+
+### Criticism of OSI and TCP/IP
+**OSI:**
+Pros: Very influential model with clear concepts
+Cons: The model, protocols and adoption hampered by politics and complexity
+
+**TCP/IP:**
+Pros: Very successful protocols that work well and are widely used
+Cons: Weak model, which is subsequently derived from the current protocols
+
+Domain names extractions
+![[Domain names.png]]
+
+DNS (Domain Name Server)
+![[DNS domain name server.png]]
+Internet Cache
+![[Internet Cache.png]]
+Internet Cookies
+![[Internet Cookies.png]]
+
+
+
+## Safety on the web???
+- The web was originally made for a less closed group of users who trust each other
+	- "security" is not built in, but added by new protocols and setting up restrictions on what is forwarded
+- Packets can be "sniffed" (wireshark)
+	- Broadcast media a la WiFi
+	- Installed on router
+- Packets can be "spoofed" (invent your own header)
+- Denial of service attacks, DOS,…
+- ...
+
+Lecture 9
+- Review: Have you understood basic concepts
+	- Packet switching, delays, bottlenecks, protocol stack
+- Exercises: Can you use them in new examples?
+	- Concrete delay calculation
+	- Bottlenecks
+- Practical: Can use the network tools
+- Traceroute, start Wireshark.
+
+_______
+___
+# Lecture 10 - Application layer protocols
+1. Application layer protocols and what are their needs for data- transportation
+2. HTTP
+	1. Structure of Notices
+	2. Response time and persistent connections
+	3. HTTP Caching
+3. DNS
+	1. Operation
+	2. DNS caching
+	3. DNS tools
+4. (P2P)
+	1. Bit torrent
+
+## Application layer protocols
+What are network applications and their communication needs?
+How do application programs communicate with each other?
+Which services does the transport layer in the TCP/IP model provide for applications?
+
+
+## Network applications
+**Programs such as:**
+• Is carried out on (more different) than systems
+• Communicates over the network
+• Uses application-level protocols
+
+**Examples**
+• Web browser and web server,
+• Discord
+• Mail,
+• Skype,
+• YouTube, Zoom, Teams,
+• FTP,
+• BitTorrent application,
+• GoogleDocs, , GitHub, Dropbox,
+• CityProbe's data collection+dashboard
+
+
+## **Application requirements for communication**
+![[Application requirements for communication.png]]
+
+
+## Application Layer Protocols
+![[Application layer protocols.png]]
+### A protocol defines:
+- What **type of messages** are being exchanged?
+	- e.g., request, response, ack,…
+- Message **syntax**:
+	- Which fields are in the message and how are they delimited?
+	- That is defines parameters+structure
+- Meaning of the message (semantics)
+	- What does the information in the message mean?
+- **Rules** for how messages must be processed and be answered
+
+**Examples**:
+• *Hypertext Transfer Protocol*, Simple Mail Transfer Protocol
+• *Domain Name System Protocol*, WebSockets
+• *Bit Torrent*, Network Time Protocol,
+• …
+
+**Open Protocols:**
+• defined in RFCs
+• allows interoperability
+• e.g., HTTP, SMTP,
+Proprietary protocols
+• e.g., Skype
+
+## Services from Internet transport protocols
+### TCP (transmission control protocol) service:
+- **reliable** transport of a sequence of bytes (“pipeline” / byte stream) between sender and receiver process
+	- If the transmitter and receiver do not crash and the network does not fail permanently, data is delivered to the recipient correctly, without loss, in the order sent
+- **flow control**: a fast transmitter does not overload the receiver
+- **congestion control**: sends (down-)adjusts the send rate when the network is overloaded (traffic jam in a router)
+- **Connection-oriented**: Must be established a connection between client and server process “handshake”
+
+**DOES NOT GIVE**
+- time/latency guarantees,
+- no possibility of capacity reservation (minimum throughput),
+- no security and encryption
+	- (requires superstructure on the "transport layer security" application layer/ "Secure socket layer"
+
+### UDP ("User datagram protocol") service:
+- ” **best-effort** data transport
+	- Datagrams
+	- Connection less
+	- ==Can be lost, duplicated, rearranged by the network (e.g. due to different route)==
+
+**DOES NOT PROVIDE** 
+- reliability, flow control, congestion control, timing, throughput guarantee, security, or connections
+- SPM: What are we going to use it for? Why Does it exist?
+
+
+## **Processes**
+- The application layer communicates between processes on different hosts
+- The application is executed in a "process" = a running program on one host
+	- client process: process that initiates communication
+	- server process: process which is waiting to be contacted
+	- A given process can have both “roles”
+- Processes can, for example, be displayed with "task manager" or "ps -aux"
+- Processes on the same hosts can communicate by "inter-process communication"
+	- `ls /usr/include | grep "stdio"`
+- Between different hosts (host machines) using the transport layer
+
+## Sockets
+- Processes send/receive messages via a ("socket") **==socket==**,
+- Link/door between application layer and transport layer
+	-  Requires (at least) 2 sockets: one on each side
+	- Created by the process when calling the "socket" programming interface
+![[Sockets between aplication ana transport layer.png]]
+
+### How to contact a Process?
+For example, a server-process
+- Must have a unique identification on the web
+- Process is addressed using
+	- Host's IP number e.g.: 130.225.63.3
+	- A port number on the host e.g.: 80
+	- CS web server can be contacted at: 130.225.63.3:80
+	- Server process is expected to create a socket for the port that it uses to "listen" on
+- More precisely: We contact the process on the specified host that listens on a "socket" which is bound to the specified port
+
+
+Recognized services have permanently assigned, reserved ports
+- Maintained by the Internet Assigned Numbers Authority (IANA)
+- Port numbers 0-1023 are all reserved
+
+
+## HTTP
+What are HTTP control headers used for?
+How are HTTP messages structured/formatted?
+How is HTTP communication made more efficient?
+How are connections to the server handled?
+Why and how to "cache" HTTP documents?
+
+
+### Simple HTTP Scenario: static html file
+**HTTP: hypertext transfer protocol**
+- application layer protocol for web traffic
+- client/server model:
+- client: program (typically browser)
+	1. Client establishes TCP connection to server, typically port 80
+	2. Sends a request (via HTTP GET) about a web page
+	3. Awaiting response
+	4. Parses response and records the page
+	5. Runs possibly steps 1-4 again (in parallel) to retrieve required embedded resources (images, js scripts, style sheets)
+- server:
+1. Waiting
+2. Receives HTTP request from client
+3. Processes it and calculates answers (e.g. loads the file),
+4. Sends an HTTP response (e.g. with file content) to the client
+
+The server and the resource are indicated by a Uniform
+Resource Identifier, usually URL
+
+### HTTP Messages (syntax)
+HTTP request
+• Sent as text (human-readable)
+• In protocol descriptions, the format is set up as a table with fields
+HTTP request illustration
+![[HTTP request and respone illus.png]]
+
+HTTP request example
+![[HTTP example illus.png]]
+
+
+#### HTTP Messages: Response
+similar to requests
+HTTP response illustrantion
+![[HTTP response illus.png]]
+
+![[HTTP respone example.png]]
+
+### HTTP Features
+• Content negotiation (preferred formation)
+==• Connection management==
+• Cookies for session management
+• Cross Origin Resource Sharing (CORS)
+• Access control (Authentication)
+==• Caching==
+• Data Compression
+• Redirection
+• Portion reading (range requests)
+https://developer.mozilla.org/en-US/docs/Web/HTTP
+
+
+## HTTP
+Connection management
+How is HTTP client-server communication made more efficient?
+How is TCP best used?
+
+
+### HTTP Response Time
+**RTT (definition): round-trip time**: the time it takes for the client to send a small packet to the server and receive the answer
+
+**HTTP response time**
+- An RTT to set up the TCP connection (handshake)
+- An RTT for the HTTP request and the first few bytes of the HTTP response
+- File transmission time
+- 2RTT+ file transmission time
+
+![[HTTP response time.png]]
+**Simple browsers retrieve linked objects sequentially**
+- If the procedure is repeated sequentially for each object it becomes **slow** to load a page
+- In the example: 4* HTTP Response time
+- 1\*HTTP Response time to retrieve the page /page.html
+- + 3\*HTTP Response time for retrieving linked objects
+- >8 RTT
+http response time example
+![[HTTP response time example.png]]
+
+### HTTP Response time with parallel connections
+Client can create several **"parallel" connections** to server
+
+**HTTP response time:**
+- 2RTT+ file transmission time + server overhead and possibly Capacity limitations downlink to client
+- **Much faster for the client**
+- **Demanding for the server**, as it must reserve buffer capacity for each connection (do this for many cliffs)
+![[parallel responses.png]]
+- In the example: >2* HTTP Response Time
+- 1\*HTTP Response time to retrieve the page (/page.html)
+- + 1\*HTTP Response time for retrieving linked objects
+- +transmission time for 3 files
+![[HTTP response time example.png]]
+
+#### Solution: Persistent HTTP
+**Persistent HTTP (default in HTTP/1.1):**
+- Server keeps the connection open after sending response
+- Subsequent HTTP requests and responses are sent on same open connection:
+	- Saves overhead when establishing TCP connections
+**HTTP Pipelining**
+- Requests can be "pipelined": sent one after the other without waiting for answer "assembly line principle"
+![[http alive connectionj.png]]
+
+**HTTP response time with pipelining:**
+- 2RTT+ file transmission time+server overhead and Possibly. capacity limitations downlink to client
+- Much faster for the client
+- Less demanding on the server, as it only has to maintain one connection per client, however the  client must close the connection as soon as it is finished.
+
+**the example:**
+• 1* HTTP Response Time (GET /page.html)
+• 1\*RTT+3\*file transmission time
+GET style.css
+GET script.js
+GET photo.jpg
+![[HTTP response time example.png]]
+- HTTP/2 takes this idea further
+
+### HTTP/2
+
+Goal: reduce the delay in multi-object HTTP requests
+
+HTTP/2: \[RFC 7540, 2015\] increased server flexibility when sending
+of web objects to client:
+- methods, status codes, most header fields unchanged from HTTP 1.1
+- The transmission order of requested objects is based on a priority specified by the client (not necessarily FCFS: First-Come-First-Serve)
+- Server can send (push) objects to the client that it does not (yet) have requested
+- Division of larger objects into "frames", scheduler frames in order to least HOL ("Head of Line") blocking
+![[head of line blocking.png]]
+
+### HTTP/2: reduction of HOL blocking
+HTTP/2: object is divided into chunks (“frames”); sending frame
+merged after they are ready at the server.
+![[HOL reduction http2.png]]
+
+### From HTTP/2 to HTTP/3
+
+HTTP/2 over single TCP connection means
+- Retransmission in case of packet loss gets transmission by all objects for stalling (TCP: orderly, reliable byte-streaming service)
+	-  As in HTTP 1.1, browser gets incentive to open multiple parallel TCP connections two reduce stalling, thus increasing overall throughput
+- No security over TCP connection
+- HTTP/3: adds security, per object error and congestion control over UDP (QUIC)
+- A little more when we get to the transport layer
+
+## HTTP Caching
+A "cache" is a local storage (repository) that stores copies of requested objects in order to provide quick access to it
+
+Browser saves recently used objects/files on client
+1. Browser first looks in the cache for the requested item object ("file") exists there
+2. If yes, retrieve the object from there
+3. If no, send request to web server
+4. Cache the object and deliver the object
+
+![[Cache illustration.png]]
+
+- Only the server (and web app programmer) knows about the "mutability" of the object
+	- Rarely change: CSS files, most images, icons, trademarks, static html files
+	- Frequently changes: dynamic HTML based on DB lookups
+
+## HTTP Cache control: Conditional query
+![[Cache conditional query.png]]
+**Max‐age:** indicates in seconds how long the object can be considered "fresh" and thus about the client must use the cached object
+• Fresh: Time interval from when server generates answer + max‐age
+• Typically calculated on the basis of Date or Last‐modified header in response
+• Stale: expiry date exceeded
+
+- If Stale: Client uses "Conditional Get" which checks with the server whether the object of the cache is up-to-date
+	- The client stores the received time stamp together with the object, and sends this along
+- Server sends one of 2 possible responses:
+-  Object has not changed since \<timestamp>:
+	- NO data, possibly new extended lifetime
+	- The object has changed since \<timestamp>+data
+
+### HTTP Cache control: Conditional query, **TAGS**
+![[cache etag.png]]
+ETAG: a string that acts as version number that the client can use to validate whether the content is an object it has is the "same" as the server's
+
+Conditional Get: checks about the version of the cache matches the server's version.  The client also sends the receive version number
+
+### HTTP Cache control
+No‐cache: local content must always be validated at server first (still saves data if the object must be recycled)
+
+No‐store: The object must not be cached; must be fetched again for each request.
+
+Private vs. public. Private on only caches in the client's cache
+
+Max‐age , If‐modified‐since
+
+Link: https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching
+Link: https://developer.mozilla.org/en-US/docs/Glossary/cacheable
+
+
+### HTTP Proxies
+A proxy is  ”man-in-the-middle”
+Lecture 10 slide 37
+
+
+
+## Domain Name System (DNS)
+general info 
+
+
+## DNS messages
+
+## DNS Tools
+
+## Peer-to-Peer Systems
+Client-Server vs p2p
+![[server vs p2p.png]]
+Client-server sharing time
+![[Client server download time.png]]
+P2P sharing time
+![[P2P sharing time.png]]
+
+The tasks for lecture 10
+• Review: Have you understood basic concepts
+• Client and server "roles", cookies, DNS queries
+• Exercises: Can you use them in new examples?
+• Examining the HTTP header
+• Time difference between different HTTP connection strategies
+• HTTP cache (conditional get)
+• P2P download times
+• Practical: Can use the network tools
+• Wireshark: intercept and examine the exchanged DNS messages
+
+_________
+___________
+# Lecture 11 - The transport layer protocols and reliable communication
+
+Understand tasks, services, and protocols on the transport layer
+• TCP and UDP
+
+How these tasks are solved 
+• The link between the application layer and transport layer:
+• "primitives" (operations)
+• "sockets" and "demultiplexing"
+• Establishing TCP connections
+
+How can a Host A send a stream
+of data to Host B loss-free.
+• How to make reliable end-to-end communication?
+• Detection of lost messages?
+• Retransmission
+• Using sequence numbers?
+• (go-Back-N, Selective Repeat)
+• "Sliding windows"
+• Description of protocol as state machine, (illustration of scenarios via sequence diagrams)
+
+## Transport layer protocols
+
+### The transport layer in the TCP/IP model
+![[tcp ip model.png]]
+
+### A reliable transport protocol
+How do you ensure that data can arrive with packet loss?
+How is a protocol modelled and specified?
+How is a protocol implemented?
+
+How to determine "timeout" time?
+• Too long: Unnecessary slow
+• Too short: unnecessary retransmission of data and ACK
+• Estimated from RTT
+• Varies dynamically according to network load
+• Find a good timeout value, but can never avoid too early / too slow timeout
+## Pipelined protocols
+How do we quickly transport a lot of data correctly to the recipient?
+Can we avoid a stop&wait?
+![[pipeline protocol.png]]
+
+
+## Selective Repeat
+Allow the sender to have max N packets in the "pipeline"
+• GBN discards correct packets that arrive out-of-order
+• In Selective Repeat:
+• Receiver stores packets that arrive out-of-order in a buffer
+• Recipient acknowledges individually for each package received
+• Sender only retransmits the packets that lack a receipt
+• Sender sets a timer for each individual packet it sends
+
+Selective Repeat
+![[selective repeat.png]]
+
+
+## Establishing TCP connections
+How does a client connect to a server?
+How do they stop communication and bring down the connection again?
+
+
+### TCP header
+![[TCP header.png]]
+
+
+### 3-way-handshake
+![[3 way handshake.png]]
+
+
+Controlled shutdown
+![[Controlled shutdown.png]]
+
+## Multiplexing/Demultiplexing
+How are many compounds distinguished?
+How to get data to/from the right socket?
+
+• Process is addressed using the host's IP number + port number within a host
+• Processes send/receive data via a socket, a link between the application and transport layers
+• There are many processes on a host, thus many that the transport layer must serve
+• A process can communicate with many others simultaneously (can thus have many sockets)
+• How is data delivered to the right socket?
+![[muti-demultip- plexing.png]]
+
+
+### Demultiplexing
+Host receives an IP datagram
+• Each datagram has a source IP address, dest IP address
+• Each datagram carries one transport layer segment
+• Each transport-layer segment has one source and destination port
+• Host user IP address and port numbers to forward data to it intended socket
+![[TCP UDP segment format.png]]
+
+
+#### Demultiplexing in UDP
+Receiving socket identified by recipient IP and port (dest IP, dest port)
+- Receiving UDP segment:
+	- Checks to see if there exists an active socket on dest port
+	- Forwards data to this
+• NB! 2 UDP segments with same dest, but different src is delivered to the same socket
+• NB! Source IP and port must known if the sender must could answer recipient
+![[Demulti UDP.png]]
+
+#### Demultiplexing in TCP
+TCP socket is identified by 4-tuple ):
+– source IP address
+– source port number
+– dest IP address
+– dest port number
+• demux: receiver uses all 4 values to forward to the intended recipient socket
+• server process can have many simultaneous TCP connections (e.g., to each web client):
+– Each socket is identified by its own 4-tuple
+![[demulti in tcp.png]]
+
+The tasks Lecture 11
+
+• Review: Have you understood the basics concepts
+• Demultiplexing,
+• Retransmission Strategist: Go-N-Back, Selective retransmission,
+• Exercises:
+• Control of protocol state machine: alt-bit
+• Sliding windows
+• Practical: Can use the network tools
+• Portscan with NMAP: which applications are listening on one given HOST?
+______
+______
+## Lecture 12 TCP and Using the transport layer in programs: Socket programming
