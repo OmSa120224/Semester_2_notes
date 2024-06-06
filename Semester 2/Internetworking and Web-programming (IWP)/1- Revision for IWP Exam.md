@@ -7,7 +7,7 @@ ______
 Course's Goal
 ![[IWP course goal.png]]
 
-
+pr
 5-layers model of the Internet
 ![[IWP 5 layers of the internet.png]]
 
@@ -2091,3 +2091,295 @@ The tasks Lecture 11
 ______
 ______
 ## Lecture 12 TCP and Using the transport layer in programs: Socket programming
+
+Agenda
+3.5 connection-oriented transport: TCP
+– segment structure
+– reliable data transfer
+– flow control
+3.6 principles of congestion control
+3.7 TCP congestion control
+
+
+## Transmission Control Protocol:
+- point-to-point:
+	- one sender, one receiver
+- full duplex data:
+	- bi-directional data flow in same connection
+	- MSS: maximum segment size
+- reliable, in-order byte stream:
+	- no “message boundaries”
+
+- connection-oriented:
+	- handshaking (exchange of control msgs) initializes sender, receiver state before data exchange
+- pipelined:
+	- TCP congestion and flow control set window size
+* flow controlled:
+	* sender will not overwhelm receiver
+
+## TCP segment structure 
+
+- ==Src/dst ports==
+	- ==TCP and UDP have different namespaces==
+- ==Seq/ack numbers to the byte==
+Flags:
+- CWR and ECE – explicit congestion notification
+- URG and PSH – urgent data
+- SYN and FIN seen in lecture 11
+- ==ACK is 1 if the ACK number is valid==
+- RST to kill the connection
+- Header length – needed since “Options” has variable length
+- Receive window: for flow control
+- Internet checksum: 16-bit checksum for TCP header, payload, and some data from IP (routing layer)
+- Urgent data pointer: used with the URG flag
+- Options: for example to set the maximum size of the segments, or timestamp
+![[TCP segment stuctrute.png]]
+
+
+
+## TCP Sequence Numbers, ACKs
+
+
+## TCP Retransmission Scenarios
+![[TCP Retransmission Scenarios.png]]
+
+### TCP ACK Generation
+![[TCP ACK Generation.png]]
+
+
+## TCP Flow Control
+receiver controls sender, so sender won’t overflow receiver’s buffer by transmitting too much, too fast
+
+
+## Principles of Congestion Control
+informally: “too many sources sending too much data too fast for network to handle”
+
+manifestations:
+– lost packets (buffer overflow at routers)
+– long delays (queueing in router buffers)
+
+flow control vs congestion control
+– buffers of the receiver vs network resources
+– knowing the state of the receiving buffers vs estimating the state of the network
+
+![[Causes Costs of Congestion Scenario.png]]
+
+## TCP Congestion Control: Additive Increase Multiplicative Decrease
+
+
+
+###  TCP Congestion Control: the sender
+rate 
+![[TCP Congestion Control  the sender.png]]
+
+
+### TCP Throughput
+average TCP
+window size
+average thruput
+![[TCP Throughput.png]]
+
+
+## The Socket
+- Formed by the concatenation of a port value and an IP address
+	- Unique throughout the Internet
+- Used to define an API
+	- Generic communication interface for writing programs that use TCP or UDP
+- Stream sockets
+	- All blocks of data sent between a pair of sockets are guaranteed for delivery and arrive in the order that they were sent
+- Datagram sockets
+	- Delivery is not guaranteed, nor is order necessarily preserved
+- Raw sockets
+	- Allow direct access to lower-layer protocols
+
+### Defining a socket:
+Two main things to do
+- Addressing
+	- Specifying a host and a service (IP + port)
+	- It is a tuple (“www.cs.aau.dk”, 80)
+- Data transport
+	- Mainly TCP (SOCK_STREAM) or UDP (SOCK_DGRAM)
+
+
+### Socket Programming with UDP
+UDP: no “connection” between client & server
+• no handshaking before sending data
+• sender explicitly attaches IP destination address and port # to each
+packet
+• receiver extracts sender IP address and port# from received packet
+
+UDP: transmitted data may be lost or received out-of-order Application viewpoint:
+• UDP provides unreliable transfer of groups of bytes (“datagrams”)
+between client and serve
+
+### Client/Server Socket Interaction: UDP
+![[ClientServer Socket Interaction UDP.png]]
+
+
+### Socket Programming with TCP
+![[Socket Programming with TCP.png]]
+
+### Client/Server Socket Interaction: TCP
+![[Client Server Socket Interaction TCP.png]]
+
+### The Socket API
+![[The Socket API.png]]
+
+
+C Server  slide 41 lecture 12 
+C Client
+JavaScript Server
+JavaScript Client
+Windows programming slide 45 
+
+
+### Issues:
+![[Issues.png]]
+
+
+#### Issues with the recv()
+
+
+_________
+_____
+# Lecture 13 - Security in computer networks
+
+Agenda
+8.1 What is network security?
+8.2 Principles of cryptography
+8.4 Authentication
+8.3 Message integrity
+8.6 Securing TCP connections: SSL
+8.7 Network layer security: IPsec
+
+## What is Network Security?
+
+![[network security triangle.png]]
+
+**confidentiality**: only sender, intended receiver should “understand” message contents
+	– sender encrypts message
+	– receiver decrypts message
+**authentication**: sender, receiver want to confirm identity of each other
+**authorization**: each authenticated user must be able to do a set of tasks
+**message integrity**: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection 
+
+**access and availability**: services must be accessible and available to users
+
+STRIDE
+![[STRIDE.png]]
+
+
+
+### Toy SSL: A Simple Secure Channel
+- handshake: Alice and Bob use their certificates, private keys to
+authenticate each other and exchange shared secret
+-  key derivation: Alice and Bob use shared secret to derive set of keys
+- data transfer: data to be transferred is broken up into series of records
+- connection closure: special messages to securely close connection
+![[simple handshake ssl.png]]
+
+### Toy: Key Derivation
+![[values meaning key derivation.png]]
+
+
+### Toy: Sequence Numbers 
+![[Sequence Numbers.png]]
+
+### Toy: Control Information
+![[Control Information.png]]
+
+
+### Toy SSL: Summary
+![[Summary SSL.png]]
+
+### SSL Cipher Suite
+![[SSL Cipher Suite.png]]
+### SSL Record Format
+![[SSL Record Format.png]]
+
+
+### Real SSL Connection
+![[Real SSL Connection.png]]
+
+____
+____
+# Extra
+
+TCP vs UDP
+![[TCP VS UPD.png]]
+
+
+Multiplexing, 
+![[Pasted image 20240606012025.png]]
+de-multiplexing
+![[Pasted image 20240606012053.png]]
+
+
+![[STRIDE.png]]
+authentication, and confidentiality against spoofing
+itegrity against tampering
+![[Pasted image 20240606013413.png]]
+
+# Formulas
+
+The transmission delay (also known as the transmission time) is the amount of time required to push all the packet's bits into the wire. It can be calculated using the formula:
+$$Transmission\;\; delay = packet\;\; length / Rate = L/R$$
+
+
+The propagation delay is the time it takes for a signal to travel from the sender to the receiver. It can be calculated using the formula:
+$$
+propagation\;\; delay= distance/propagation\;\; speed =d/s
+$$
+propagation speed  is usually the speed of light in vacuum
+
+The total delay in a network link is the sum of the transmission delay and the propagation delay.
+$$
+Total\;\; delay= transmision\;\; delay + propagation\;\; delay
+
+$$
+
+ link utilizations is the actual transmission rate over the maximum transition rate.
+
+ utilizations is also how much is being used of the total possible transmission rate
+
+
+
+![[Pasted image 20240606145319.png]]
+To determine the end-to-end throughput experienced by the clients for their downloads, we need to identify the bottleneck link for each path from the servers to the clients. The throughput of each path will be limited by the link with the smallest bandwidth in that path.
+
+the answer is 4 as all of them are sharing the link R3 and it is the bottleneck for all of them.
+
+
+
+Units
+![[maxresdefault.jpg]]
+
+
+Et streaming firma skal have uploadet et ny datasæt på 40 terabytes til en server, der er placeret tæt hos forbrugerne, men et stykke væk fra firmaet. Deres Internet forbindelse til serveren tillader en gennemsnitlig upload hastighed på 100 Mbps. Hvor lang tid tager det? Sammenlig tid og pris med at sende en fysisk pakke med et speditionsfirma med næste-dags levering. Antag firmaet køber en dedikeret forbindelse til serveren, med 10 gange højere kapacitet. Hvor lang tid tager det så? Hvad bliver den gennemsnitlige udnyttelsesgrad af denne, under antagelse af at et nyt datasæt uploades en gang om måneden, og den daglige trafik (email, web-surfing, etc) udgør 20 Mbps i gennemsnit. Overvej de praktiske konsekvenser i scenariet.
+
+![[Pasted image 20240606150633.png]]
+
+
+
+
+#### Lecture 10 e
+An **authoritative DNS server** holds and provides definitive answers to DNS queries about domain names within its administrative control. Here's why:
+
+1. **Authority**: The authoritative DNS server has the original source of DNS records for the domains it manages. This includes records such as A, CNAME, MX, and NS records, among others.
+    
+2. **Responsibility**: When a domain (e.g., enterprise.com) is registered, the authoritative DNS server is designated as responsible for providing DNS responses for that domain. This server is listed in the NS (Name Server) records at the parent domain level, such as in the TLD (Top-Level Domain) DNS servers.
+    
+3. **Accuracy**: Unlike caching DNS servers or recursive resolvers, which may provide temporarily stored data, the authoritative DNS server always provides the most current and accurate information about the domain's DNS records.
+    
+4. **Zone Management**: The authoritative DNS server is where administrators manage and update the DNS records for the domain. Any changes to the domain's DNS records must be made on this server.
+
+
+
+## go back N protocol 
+![[Pasted image 20240606205137.png]]
+
+
+![[Pasted image 20240606210444.png]]
+
+if frame two is not ACKed then frames 2,3 4 and 5 will be retrasmitted
+![[Pasted image 20240606210636.png]]
